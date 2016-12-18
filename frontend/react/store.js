@@ -13,9 +13,9 @@ const reducers = combineReducers({
 
 const store = createStore( reducers, applyMiddleware(thunk));
 
-store.subscribe(()=>{
-	console.log("Store Updated :", store.getState().loggeduser);
-});
+// store.subscribe(()=>{
+// 	console.log("Store Updated :", store.getState().loggeduser);
+// });
 
 store.dispatch(getLoggedUser());
 

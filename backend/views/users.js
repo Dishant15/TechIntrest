@@ -33,7 +33,6 @@ router.get('/status/', function(req, res){
 			name: "",
 		}
 	}
-	console.log(status);
     res.json(status);
 });
 
