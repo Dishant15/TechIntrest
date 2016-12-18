@@ -25,10 +25,10 @@ passport.use(new TwitterStrategy({
     callbackURL: "http://localhost:3000/user/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
-     //check user table for anyone with a facebook ID of profile.id
+     //check user table for anyone with a twitter ID of profile.id
         User.findOne({ 'twitter_id': profile.id }, function(err, user) {
             if (err) return done(err);
-            //No user was found... so create a new user with values from Facebook (all the profile. stuff)
+            //No user was found... so create a new user with values from twitter (all the profile. stuff)
             if (!user) {
                 user = new User({
                     name: profile.displayName,

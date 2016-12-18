@@ -6,22 +6,25 @@ router.get('/', function(req, res) {
   res.render('index');
 });
 
+router.get('/api/pin/all/', function(req, res) {
+	Pin.find({}, (err, pin_list)=> {
+		res.json({pins:pin_list});
+		return;
+	})
+});
+
 router.post('/api/pin/add/', (req,res) => {
 	if(req.user){
-		// let new_pin = {
-		// 	image: "https://lh4.ggpht.com/wKrDLLmmxjfRG2-E-k5L5BUuHWpCOe4lWRF7oVs1Gzdn5e5yvr8fj-ORTlBF43U47yI=w300",
-		// 	description: "this is first test image",
-		// 	creator: req.user.twitter_id,
-		// }
-		// Pin(new_pin).save((err, pin) => {
-		// 	if(err){
-		// 		res.json({success:false});
-		// 	} else {
-		// 		console.log(pin)
-		// 		res.json({success:true});
-		// 	}
-		// })
-		res.json({success:true, data: req.body})
+		let new_pin = req.body;
+		new_pin['creator'] = req.user;
+
+		Pin(new_pin).save((err, pin) => {
+			if(err){
+				res.json({success:false, data:err});
+			} else {
+				res.json({success:true, data: pin});
+			}
+		})
 	} else {
 		res.json({success: false, data: 'User not logged in!'})
 	}
