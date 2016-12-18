@@ -14,13 +14,27 @@ router.get('/twitter/login/', passport.authenticate('twitter'));
 // access was granted, the user will be logged in.  Otherwise,
 // authentication has failed.
 router.get('/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/user/login' }), function(req, res){
-	if(req.session.path){
-		const red = req.session.path;
-		req.session.path = null;
-		res.json({success:true, date:'redirect', url:red});
+	res.redirect('/');
+});
+
+router.get('/status/', function(req, res){
+	
+	if(req.user){
+		var status = {
+			logged: true,
+			twitter_id: req.user.twitter_id,
+			name: req.user.name,
+		};
+		
 	} else {
-		res.redirect('/');
+		var status = {
+			logged: false,
+			twitter_id: null,
+			name: "",
+		}
 	}
+	console.log(status);
+    res.json(status);
 });
 
 router.get('/logout/', function(req, res){

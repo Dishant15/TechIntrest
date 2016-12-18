@@ -10,6 +10,10 @@ const loggedUserReducer = (state=initState, action) => {
 			return { ...state, fetching:true, fetched: false }
 		}
 
+		case "USER_STATUS_FETCHED": {
+			return { ...state, fetching:false, fetched: true, ...action.payload }
+		}
+
 		default: {
 			return { ...state }
 		}

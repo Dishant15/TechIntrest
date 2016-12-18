@@ -1,4 +1,5 @@
 import React from 'react';
+import {browserHistory} from 'react-router';
 import {submitFormData, ErrorList} from '../utils';
 import Image from 'react-image-fallback';
 
@@ -39,8 +40,15 @@ export default class Addpin extends React.Component {
 		}
 
 		const url = "/api/pin/add/"
-		const test = (res)=>{console.log(res)}
-		submitFormData(url, data, test, test)
+		const callback = (res)=>{
+			if(res.success){
+				browserHistory.push(`/pin/${res.data._id}/`);
+			} else {
+				console.log(res);
+			}
+		}
+		const errback = (res) => {console.log(res)}
+		submitFormData(url, data, callback, errback)
 	}
 
 	handleTextChange(event){

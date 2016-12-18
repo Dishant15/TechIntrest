@@ -20,7 +20,7 @@ export default class BlockGrid extends React.Component {
 
 	setDefaults(){
 		this.blockWidth = 260;	// initial desired block width
-		this.borderWidth = 3;
+		this.borderWidth = 5;
 		this.wrapperWidth = 0;
 		this.colCount = 0;
 		this.blocks = [];
@@ -75,19 +75,8 @@ export default class BlockGrid extends React.Component {
 		// setContainerWidth only first time we recieve BlockList data
 		if(this.wrapperWidth == 0){
 			this.wrapperWidth = $('.block-container').outerWidth();
-			if(this.wrapperWidth < this.blockWidth){
-				// for smalest screens with width < 400 around px blocks
-				// needs to be smaller than 250 ( i.e. iphone 5/4)
-				this.blockWidth = 200;
-			}
 
 			this.colCount = Math.round(this.wrapperWidth/this.blockWidth);
-			/*
-			un-comment below line to re size blocks to accomodate full space it has
-			problem: on ipad mini size screens quote bocks become too wide and looks ugly
-			*/
-			// this.blockWidth = Math.floor(this.wrapperWidth/this.colCount);
-			// set block width
 			$('.block').css('width', this.blockWidth);
 
 			this.blockCount = document.getElementsByClassName('block').length;

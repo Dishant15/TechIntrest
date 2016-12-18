@@ -12,16 +12,16 @@ import BlockGrid from '../components/BlockGrid';
 		pins : store.pinList.pins,
 	};
 })
-export default class IndexPage extends React.Component {
+export default class UserPinsPage extends React.Component {
 
 	componentWillMount(){
-		this.props.dispatch(loadPinList('/api/pin/all/'))
+		this.props.dispatch(loadPinList(`/api/user/${this.props.params.id}/`))
 	}
 
 	render(){
 		return(
-			<div style={{textAlign:'center'}}>
-				<h2>Best Tech Pins, All at one place</h2>
+			<div class='text-center'>
+				{this.renderTitle()}
 				<div class="container" >
 					{this.props.fetched &&
 						<BlockGrid data={this.props.pins} />
@@ -29,5 +29,15 @@ export default class IndexPage extends React.Component {
 				</div>
 			</div>
 		)
+	}
+
+	renderTitle(){
+		if(this.props.fetched){
+			const creator = this.props.pins[0].creator;
+
+			return(
+				<h2>Tech Pins by {creator.name}</h2>
+			)
+		}
 	}
 }
