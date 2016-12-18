@@ -1,4 +1,8 @@
-const initState = {};
+const initState = {
+	logged: false,
+	twitter_id: null,
+	name: "",
+};
 
 const loggedUserReducer = (state=initState, action) => {
 	switch(action.type){

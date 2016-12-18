@@ -4,9 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var passport = require('passport');
+var mongoose = require('mongoose');
 var exphbs  = require('express-handlebars');
 
-var routes = require('./views/index');
+var routes = require('./views/pin');
 var users = require('./views/users');
 
 var app = express();
@@ -23,6 +26,14 @@ var hbs = exphbs.create({
 app.engine('.html', hbs.engine);
 app.set('view engine', '.html');
 
+var mongo_uri = "mongodb://localhost:27017/techintrest";
+mongoose.connect(mongo_uri, function(err, db){
+  if(err){
+    console.log(err);
+    process.exit(1);
+  }
+});
+
 // uncomment after placing your favicon in /static
 app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
 
@@ -30,10 +41,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(session({ 
+    secret: 'LSK34DJF23KJH45JD',
+    resave : true,
+    saveUninitialized : false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use(express.static(path.join(__dirname, 'static')));
 
+app.use('/user', users);
 app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
