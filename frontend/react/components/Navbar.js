@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
+
+import {logoutUser} from '../actions/userAction';
+import {addNotification} from '../actions/pinActions';
 
 @connect((store) => {
 	return {
@@ -10,10 +13,22 @@ import {Link} from 'react-router';
 	};
 })
 export default class Navbar extends React.Component {
+	loggOut(e){
+		e.preventDefault();
+		this.props.dispatch(logoutUser());
+		this.props.dispatch(addNotification(
+							{
+								type : 'warning',
+								icon : 'fa-power-off',
+								title : 'You have been Logged Out successfully',
+							}
+						));
+		browserHistory.push('/');
+	}
+
 	render(){
 		return(
-			<div class="container">
-				<Link to="/">Home</Link> | <Link to='/pin/add/'> Add Pin </Link> | <a href='/user/twitter/login/'> LogIn </a>
+			<div class="container" style={{margin:'30px auto'}}>
 
 				<nav class="navbar navbar-default">
 				  
@@ -28,25 +43,22 @@ export default class Navbar extends React.Component {
 				    </div>
 				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				      <ul class="nav navbar-nav">
-				        <li><Link href="/">Home</Link></li>
+				        <li><Link to="/">Home</Link></li>
 				      </ul>
 
-				      <ul class="nav navbar-nav navbar-right">
+				      
 				      	{this.props.logged ? 
-				      		<li class="dropdown">
-					          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{this.props.name} <span class="caret"></span></a>
-					          <ul class="dropdown-menu">
-					            <li><a href="#">Action</a></li>
-					            <li><a href="#">Another action</a></li>
-					            <li><a href="#">Something else here</a></li>
-					            <li role="separator" class="divider"></li>
-					            <li><a href="#">Separated link</a></li>
-					          </ul>
-					        </li>
+				      	<ul class="nav navbar-nav navbar-right">
+				      		<li><Link to={`/user/${this.props.twitter_id}/pins/`}><small>Welcome, {this.props.name}</small></Link></li>
+				      		<li><Link to='/pin/add/'>Add Pin</Link></li>
+				      		<li><a href="#" onClick={(e)=>{this.loggOut(e)}}>Log Out</a></li>
+				      	</ul>
 				        :
+				        <ul class="nav navbar-nav navbar-right">
 					        <li><a href="/user/twitter/login/">Log In</a></li>
+					    </ul>
 				    	}
-				      </ul>
+				      
 				    </div>
 				 
 				</nav>

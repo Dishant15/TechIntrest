@@ -11,8 +11,8 @@ export default class Block extends React.Component{
 					<div class='block-img'>
 						<Image class="center-block img-responsive"
 							src={this.props.image}
-		                    fallbackImage='http://colorvisiontesting.com/images/plate%20with%205.jpg'
-		                    initialImage='http://cdn.instructables.com/FMY/RT6K/GMX1S148/FMYRT6KGMX1S148.MEDIUM.gif'
+		                    fallbackImage='/media/broken.jpg'
+			                initialImage='/media/loading.gif'
 		                    alt={this.props.description}
 				            onLoad={this.props.loadHandler}
 		                />
@@ -21,11 +21,12 @@ export default class Block extends React.Component{
 						{this.props.description}
 					</div>
 				</Link>
-				<hr/>
 				<Link to={`/user/${this.props.creator.twitter_id}/pins/`}>
-					<div class='block-creator'>
-						{this.props.creator.name}
-					</div>
+					<blockquote class="blockquote-reverse block-creator">
+						<footer>
+							<cite title="Source Title">{this.props.creator.name}</cite>
+						</footer>
+					</blockquote>
 				</Link>
 			</div>
 		)

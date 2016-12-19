@@ -18,17 +18,35 @@ export default class UserPinsPage extends React.Component {
 		this.props.dispatch(loadPinList(`/api/user/${this.props.params.id}/`))
 	}
 
+	componentWillReceiveProps(nextProps){
+		if(this.props.params.id != nextProps.params.id){
+			this.props.dispatch(loadPinList(`/api/user/${nextProps.params.id}/`))
+		}
+	}
+
 	render(){
 		return(
 			<div class='text-center'>
 				{this.renderTitle()}
 				<div class="container" >
-					{this.props.fetched &&
-						<BlockGrid data={this.props.pins} />
+					{this.renderPins()}
+
+					{this.props.fetching &&
+						<h1 class='text-center'> Loading ... </h1>
 					}
 				</div>
 			</div>
 		)
+	}
+
+	renderPins(){
+		if(this.props.fetched ){
+			if(this.props.pins.length > 0){
+				return <BlockGrid data={this.props.pins} />
+			} else {
+				return <h2 class='text-center'>Oops, No Tech here yet!!</h2>
+			}
+		}
 	}
 
 	renderTitle(){
@@ -36,7 +54,7 @@ export default class UserPinsPage extends React.Component {
 			const creator = this.props.pins[0].creator;
 
 			return(
-				<h2>Tech Pins by {creator.name}</h2>
+				<h2 class="heading">Tech Pins by {creator.name}</h2>
 			)
 		}
 	}

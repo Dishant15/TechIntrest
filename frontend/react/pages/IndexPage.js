@@ -21,8 +21,8 @@ export default class IndexPage extends React.Component {
 	render(){
 		return(
 			<div style={{textAlign:'center'}}>
-				<h2>Best Tech Pins, All at one place</h2>
 				<div class="container" >
+					<h2 class="heading">Best Tech Pins, All at one place</h2>
 					{this.props.fetched &&
 						<BlockGrid data={this.props.pins} />
 					}

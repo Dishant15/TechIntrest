@@ -1,3 +1,6 @@
+import _ from 'lodash';
+import store from '../store';
+
 const initState = {
 	pin: {
 		image: 'www.loading.com',
@@ -60,4 +63,43 @@ export const pinListReducer = (state=pinListState, action) => {
 			return state;
 		}
 	}
+}
+
+const initNotiState = {
+	noti_count : 0,
+	notifications : [],
+}
+
+export const notificationReducer = (state=initNotiState, action) => {
+
+	switch(action.type){
+		case "ADD_NOTIFICATION": {
+			const new_notifications = _.unionBy(state.notifications, action.payload, 'title');
+			return {...state, notifications: new_notifications, noti_count : new_notifications.length }
+		}
+
+		case "REMOVE_NOTIFICATION": {
+			const new_notifications = _.pullAllBy(state.notifications, [{'title': action.payload}], 'title');
+			return {...state, notifications: new_notifications, noti_count : new_notifications.length }
+		}
+
+		case "USER_STATUS_FETCHED": {
+			if(!store.getState().loggeduser.logged && action.payload.logged ) {
+				const noti = {
+								type : 'success',
+								icon : 'fa-power-off',
+								title : `Welcome to TechIntrest, ${action.payload.name}`,
+							}
+				const new_notifications = _.unionBy(state.notifications, [noti], 'title');
+				return {...state, notifications: new_notifications, noti_count : new_notifications.length }
+			} else {
+				return {...state};
+			}
+		}
+
+		default: {
+			return {...state};
+		}
+	}
+
 }

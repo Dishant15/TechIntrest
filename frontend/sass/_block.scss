@@ -3,4 +3,14 @@
 	color: black;
 	display: inline-block;
 	max-width: 250px;
+
+	.block-description {
+		margin: 20px auto;
+		color: black;
+		font-size: 120%;
+	}
+
+	blockquote {
+		margin-bottom: 10px;
+	}
 }

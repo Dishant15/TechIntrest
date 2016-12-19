@@ -40,3 +40,17 @@ export function loadPinList(url){
 		});
 	})
 }
+
+export function addNotification(notification){
+	if(_.isArray(notification)){
+		return {
+			type:'ADD_NOTIFICATION',
+			payload: notification,
+		}
+	} else {
+		return {
+			type:'ADD_NOTIFICATION',
+			payload: [ notification ],
+		}
+	}
+}

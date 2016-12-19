@@ -54,7 +54,7 @@ export default class Addpin extends React.Component {
 	handleTextChange(event){
 		let newState = {};
 		newState[event.target.name] = event.target.value
-		this.setState(newState);
+		this.setState({...newState, error:{}});
 	}
 
 	renderErrorBlock(field_name){
@@ -69,49 +69,50 @@ export default class Addpin extends React.Component {
 	render(){
 		return(
 			<div class='container'>
-				<form id="add-pin" class="row">
-					<div class="col-xs-offset-1 col-xs-10 col-sm-4">
-						{this.state.image &&
-							<Image class="block-center img-responsive" key={this.state.image}
-								src={this.state.image}
-			                    fallbackImage='http://colorvisiontesting.com/images/plate%20with%205.jpg'
-			                    initialImage='http://cdn.instructables.com/FMY/RT6K/GMX1S148/FMYRT6KGMX1S148.MEDIUM.gif'
-			                />
-						}
+				<form id="add-pin" >
+					<div class='row'>
+						<div class="col-xs-offset-1 col-xs-10 col-sm-offset-4 col-sm-4">
+							{this.state.image &&
+								<Image class="block-center img-responsive" key={this.state.image}
+									src={this.state.image}
+				                    fallbackImage='/media/broken.jpg'
+				                    initialImage='/media/loading.gif'
+				                />
+							}
 
-						{!this.state.image && 
-							<div class='text-center image-div'>
-								<h3>Copy paste tech image url bellow</h3>
+							{!this.state.image && 
+								<div class='text-center image-div'>
+									<h3>Copy paste tech image url bellow</h3>
+								</div>
+							}
+
+							<div class = "form-group">
+								{this.renderErrorBlock('image')}
+						        <input type="text" class="form-control" 
+						        	name="image"
+						        	placeholder='paste a Tech image url here...'
+						        	onChange={this.handleTextChange} 
+						        	value={this.state.image} 
+						        />
 							</div>
-						}
-
-						<div class = "form-group">
-							{this.renderErrorBlock('image')}
-					        <input type="text" class="form-control" 
-					        	name="image"
-					        	placeholder='paste a Tech image url here...'
-					        	onChange={this.handleTextChange} 
-					        	value={this.state.image} 
-					        />
+							<div class = "form-group">
+								<label>Tech Description</label>
+								{this.renderErrorBlock('description')}
+						        <textarea type="text" rows="3" class="form-control" 
+						        	name="description"
+						        	placeholder="Tell us more about this tech!"
+						        	onChange={this.handleTextChange} 
+						        	value={this.state.description} 
+						        />
+							</div>
 						</div>
 					</div>
 
-					<div class="col-xs-offset-1 col-xs-10 col-sm-offset-0 col-sm-6">
-						<div class = "form-group">
-							<label>Tech Description</label>
-							{this.renderErrorBlock('description')}
-					        <textarea type="text" rows="3" class="form-control" 
-					        	name="description"
-					        	placeholder="Tell us more about this tech!"
-					        	onChange={this.handleTextChange} 
-					        	value={this.state.description} 
-					        />
-						</div>
+					<div class='text-center'>
+						<button class='btn btn-default' onClick={this.submitForm} style={{minWidth:'150px'}}> Add Pin </button>
 					</div>
 				</form>
-				<div class='row text-center'>
-					<button class='btn btn-default' onClick={this.submitForm}> Add Pin </button>
-				</div>
+				
 			</div>
 		)
 	}

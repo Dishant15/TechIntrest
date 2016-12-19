@@ -19,3 +19,14 @@ export function getLoggedUser(){
 		});
 	})
 }
+
+export function logoutUser(){
+	// paginated res
+	return ( (dispatch) => {
+		dispatch({type:"USER_LOGOUT"});
+		$.ajax({
+			url : '/user/logout/',
+			dataType: 'json',
+		})
+	})
+}

@@ -5,7 +5,7 @@ export const ErrorList = props => (
     /*
     Show list of errors in all forms
     */
-    <p class="text-danger" ><small>{props.error}</small></p>
+    <p class="text-danger" ><b>{props.error}</b></p>
 );
 
 export function submitFormData(url, data, callback, errback){

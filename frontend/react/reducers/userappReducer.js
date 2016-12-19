@@ -1,4 +1,6 @@
 const initState = {
+	fetching: false,
+	fetching: false,
 	logged: false,
 	twitter_id: null,
 	name: "",
@@ -12,6 +14,10 @@ const loggedUserReducer = (state=initState, action) => {
 
 		case "USER_STATUS_FETCHED": {
 			return { ...state, fetching:false, fetched: true, ...action.payload }
+		}
+
+		case "USER_LOGOUT": {
+			return { ...initState }
 		}
 
 		default: {
