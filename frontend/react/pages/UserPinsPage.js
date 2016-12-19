@@ -27,8 +27,8 @@ export default class UserPinsPage extends React.Component {
 	render(){
 		return(
 			<div class='text-center'>
-				{this.renderTitle()}
 				<div class="container" >
+					{this.renderTitle()}
 					{this.renderPins()}
 
 					{this.props.fetching &&
