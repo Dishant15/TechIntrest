@@ -48,7 +48,7 @@ router.get('/pre/:path', function(req, res){
 });
 
 router.get('/login/', function(req, res){
-	res.json({success:false, data:"Twitter Login failed!!"});
+	res.redirect('/');
 });
 
 router.get('/all/', function(req, res){
