@@ -26,6 +26,9 @@ export default class IndexPage extends React.Component {
 					{this.props.fetched &&
 						<BlockGrid data={this.props.pins} />
 					}
+					{this.props.fetching &&
+						<h1 class='text-center'>Loading...</h1>
+					}
 				</div>
 			</div>
 		)
