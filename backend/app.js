@@ -26,7 +26,7 @@ var hbs = exphbs.create({
 app.engine('.html', hbs.engine);
 app.set('view engine', '.html');
 
-var mongo_uri = "mongodb://localhost:27017/techintrest";
+var mongo_uri = "mongodb://dishantchavda:root@ds139278.mlab.com:39278/heroku_dw61mjjx";
 mongoose.connect(mongo_uri, function(err, db){
   if(err){
     console.log(err);

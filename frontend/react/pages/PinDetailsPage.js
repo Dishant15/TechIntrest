@@ -34,8 +34,8 @@ export default class PinDetailsPage extends React.Component{
 					<div class="col-xs-offset-1 col-xs-10 col-sm-offset-4 col-sm-4 pin-detail">
 						<Image class="center-block img-responsive"
 							src={this.props.pin.image}
-		                    fallbackImage='http://colorvisiontesting.com/images/plate%20with%205.jpg'
-		                    initialImage='http://cdn.instructables.com/FMY/RT6K/GMX1S148/FMYRT6KGMX1S148.MEDIUM.gif'
+		                    fallbackImage='/media/broken.jpg'
+				            initialImage='/media/loading.gif'
 		                />
 		                <h2> {this.props.pin.description} </h2>
 
