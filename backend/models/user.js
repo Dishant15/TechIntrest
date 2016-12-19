@@ -22,7 +22,7 @@ var passport = require('passport')
 passport.use(new TwitterStrategy({
     consumerKey: "BW4IJIIoXLB59On0tRr8EOETq",
     consumerSecret: "9T27nSEGdywRowNhooNiQiAPh4qln7yWeQt8l6IQXPXrEBs29m",
-    callbackURL: "http://localhost:3000/user/twitter/callback"
+    callbackURL: "https://techintrest15.herokuapp.com/user/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
      //check user table for anyone with a twitter ID of profile.id
